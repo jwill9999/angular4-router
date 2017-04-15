@@ -57,5 +57,7 @@ export class AppRoutingModule {}
 
 
 // Here we add all our routes and of course bring in the imports
-// remember to import RouterModule and export it to app.modules imports section
+// Remember to import RouterModule and export it through app.modules exports section
 // where you declare this class
+// NB... canActivateChild: [AuthGuardService] and canDeactivate: [CanDeactivateGuard] these are
+// services which set up checks for auth-guard and deactivate before saving

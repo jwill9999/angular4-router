@@ -8,7 +8,9 @@ import { ServersService } from './servers.service';
   styleUrls: ['./servers.component.css']
 })
 export class ServersComponent implements OnInit {
-  private servers: {id: number, name: string, status: string}[] = [];
+  private servers: {  id: number,
+                      name: string,
+                      status: string }[] = [];
 
   constructor(private serversService: ServersService, private router: Router, private route: ActivatedRoute) { }
 
@@ -16,9 +18,8 @@ export class ServersComponent implements OnInit {
     this.servers = this.serversService.getServers();
   }
 
-  reloadServer()
-{
-  this.router.navigate(['/servers'], {relativeTo: this.route });
-}
+  reloadServer() {
+    this.router.navigate(['/servers'], { relativeTo: this.route });
+  }
 
 }

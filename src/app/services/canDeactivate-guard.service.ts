@@ -15,3 +15,7 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
                     return component.canDeactivate();
                 }
 }
+
+
+// service set up to warn users they can manover away from page
+// logic in local ts file e.g edit-server.component.ts

@@ -18,33 +18,37 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
   serverStatus = '';
   allowEdit: boolean = false;
   changesSaved = false;
+
   constructor(private serversService: ServersService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
-    console.log(this.route.snapshot.queryParams);
-    console.log(this.route.snapshot.fragment)
-    this.route.queryParams.subscribe((queryParams: Params)=> {
-      this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
-    });
-    const id = +this.route.snapshot.params['id']
-    this.server = this.serversService.getServer(id);
-    this.route.params.subscribe((params: Params) => {
-      this.server.id = +params['id'];
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      this.allowEdit = queryParams['allowEdit'] === '1' ? true : false; });
 
-    });
+    const id = +this.route.snapshot.params['id']
+
+    this.server = this.serversService.getServer(id);
+
+    this.route.params.subscribe((params: Params) => {
+      this.server.id = +params['id'];});
+
     this.serverName = this.server.name;
+
     this.serverStatus = this.server.status;
 
   }
 
+  //update server data
   onUpdateServer() {
     this.serversService.updateServer(this.server.id, { name: this.serverName, status: this.serverStatus });
     this.changesSaved = true;
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 
+
+  // guard to check if data is saved first prior to exit
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.allowEdit) {
       return true;
@@ -60,3 +64,8 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
 }
 
 
+// CanDeactivate uses an Observable. It checks if user can edit or not and if not just returns true and exits.
+// if the user has changed the server name or status it alerts user before redirecting page.
+// user can exit or continue to save changes first.
+
+// onInit checks and updates the + converts string to number type.
