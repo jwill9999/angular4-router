@@ -1,3 +1,4 @@
+import { ServerResolverService } from './services/server-resolver.service';
 import { CanDeactivateGuard } from './services/canDeactivate-guard.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -17,6 +18,7 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 
 
@@ -30,6 +32,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     EditServerComponent,
     ServerComponent,
     PageNotFoundComponent,
+    ErrorMessageComponent,
 
   ],
   imports: [
@@ -41,7 +44,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 
   ],
-  providers: [ServersService, AuthGuardService, AuthServiceService, CanDeactivateGuard],
+  providers: [ServersService, AuthGuardService, AuthServiceService, CanDeactivateGuard, ServerResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

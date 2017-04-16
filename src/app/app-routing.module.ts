@@ -1,3 +1,5 @@
+import { ServerResolverService } from './services/server-resolver.service';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 import { CanDeactivateGuard } from './services/canDeactivate-guard.service';
 import { CanDeactivate } from '@angular/router/router';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -27,15 +29,18 @@ const appRoutes: Routes = [
   {
     path: "servers", canActivateChild: [AuthGuardService], component: ServersComponent, children: [
       {
-        path: ":id", component: ServerComponent
+        path: ":id", component: ServerComponent, resolve: {server: ServerResolverService}
       },
       {
         path: ":id/edit", component: EditServerComponent, canDeactivate: [CanDeactivateGuard]
       }
     ]
   },
+  // {
+  //   path: '404-NotFound', component: PageNotFoundComponent
+  // },
   {
-    path: '404-NotFound', component: PageNotFoundComponent
+      path: "404-NotFound", component: ErrorMessageComponent, data: {errorMessage: "404 Error on this page"}
   },
   {
     path: '**', redirectTo: '404-NotFound'
@@ -45,6 +50,7 @@ const appRoutes: Routes = [
 
 @NgModule({
       imports: [
+        //RouterModule.forRoot(appRoutes, {useHash: true})
         RouterModule.forRoot(appRoutes)
       ],
       exports: [
@@ -61,3 +67,4 @@ export class AppRoutingModule {}
 // where you declare this class
 // NB... canActivateChild: [AuthGuardService] and canDeactivate: [CanDeactivateGuard] these are
 // services which set up checks for auth-guard and deactivate before saving
+//useHash is an option in older browser. Not a recommened feature unless issues with //server
